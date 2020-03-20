@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.ModelTemplateMapper">
+
+
+    <select id="custget" parameterType="java.lang.Integer" resultType="com.example.demo.entity.ModelTemplate">
+        select templateid as id,templatetitle as title,templatedesc as `desc` from ai_model_templates where templateid = #{id}
+    </select>
+
+    <select id="findByPaging" resultType="com.example.demo.entity.ModelTemplate" parameterType="com.baomidou.mybatisplus.extension.plugins.pagination.Page">
+        select templateid as id,templatetitle as title,templatedesc as `desc` from ai_model_templates
+    </select>
+
+</mapper>

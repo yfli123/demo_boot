@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.User2Mapper">
+
+    <select id="selectById"   resultMap="aaa" >
+       select * from myuser  WHERE userId =   #{userId}
+    </select>
+
+    <resultMap type="com.example.demo.entity.MyUser2" id="aaa">
+
+        <id column="userid" property="userId" />
+        <result column="username" property="userName"/>
+        <result column="age" property="age"/>
+        <collection property="addressList" ofType="com.example.demo.entity.Address" column="userid" select="getAddress">
+        </collection>
+    </resultMap>
+
+    <select id="getAddress" parameterType="String" resultType="com.example.demo.entity.Address" >
+        SELECT * FROM address WHERE belongUserId=#{userid}
+     </select>
+
+
+</mapper>
