@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.MenuDto;
+import com.example.demo.dto.MenuDtoForTree;
 import com.example.demo.message.ServiceMessage;
 import com.example.demo.service.MenuSevice;
 import com.example.demo.service.impl.MenuServiceImpl;
@@ -40,5 +41,20 @@ public class MenuController {
             return ServiceMessage.fail(null,"",e);
         }
 
+    }
+
+    @GetMapping("/getmenusfortree")
+    @Transactional
+    @ApiOperation(value = "获取菜单树图",notes = "获取菜单树图",httpMethod = "GET")
+    public ServiceMessage<List<MenuDtoForTree>> getAllMenusForTree(@RequestParam("lang") String lang){
+        try {
+            List<MenuDtoForTree> menuDtoForTrees = menuService.getMenuTree(lang);
+            return ServiceMessage.success(menuDtoForTrees,"sys0000");
+        } catch (Exception e){
+            log.error("获取菜单异常：", e);
+            //事务回滚
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            return ServiceMessage.fail(null,"",e);
+        }
     }
 }
